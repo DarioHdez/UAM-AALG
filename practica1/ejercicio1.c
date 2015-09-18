@@ -1,7 +1,7 @@
 /***********************************************/
-/* Programa: ejercicio1     Fecha:             */
-/* Autores:                                    */
-/*                                             */
+/* Programa: ejercicio1     Fecha: 2015-09-18  */
+/* Autores: Ángel Manuel Martín                */
+/*          Darío Adrián Hernández Barroso     */
 /* Programa que genera numeros aleatorios      */
 /* entre dos numeros dados                     */
 /*                                             */

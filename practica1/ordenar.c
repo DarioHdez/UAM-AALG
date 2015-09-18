@@ -14,8 +14,8 @@
 
 /***************************************************/
 /* Funcion: aleat_num Fecha:                       */
-/* Autores:                                        */
-/*                                                 */
+/* Autores: Ángel Manuel Martín                    */
+/*          Darío Adrián Hernández Barroso         */
 /* Rutina que genera un numero aleatorio           */
 /* entre dos numeros dados                         */
 /*                                                 */
@@ -27,7 +27,9 @@
 /***************************************************/
 int aleat_num(int inf, int sup)
 {
-  /* vuestro codigo */
+  int s = (sup - inf) + 1;
+  
+  return rand()%s + inf;
 }
 
 /***************************************************/
