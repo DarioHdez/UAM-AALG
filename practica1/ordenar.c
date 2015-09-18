@@ -49,7 +49,25 @@ int aleat_num(int inf, int sup)
 /***************************************************/
 int* genera_perm(int n)
 {
-  /* vuestro codigo */
+  int i;
+  int tmp;
+  int r;
+  int* perm = (int*)malloc(n*sizeof(int));
+ 
+  if(!perm)
+    return 0;
+
+  for(i = 0; i < n; ++i)
+    perm[i] = i + 1;
+
+  for(i = 0; i < n; ++i) {
+    r = aleat_num(0, n - 1);
+    tmp = perm[r];
+    perm[r] = perm[i];
+    perm[i] = tmp;
+  }
+
+  return perm;
 }
 
 /***************************************************/
