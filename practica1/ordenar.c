@@ -59,7 +59,7 @@ int* genera_perm(int n)
     perm[i] = i + 1;
 
   for(i = 0; i < n; ++i) {
-    r = aleat_num(0, n - 1);
+    r = aleat_num(i, n - 1);
     tmp = perm[r];
     perm[r] = perm[i];
     perm[i] = tmp;
