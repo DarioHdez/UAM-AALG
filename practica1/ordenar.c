@@ -27,9 +27,7 @@
 /***************************************************/
 int aleat_num(int inf, int sup)
 {
-  int s = (sup - inf) + 1;
-  
-  return rand()%s + inf;
+  return inf + rand()%(sup - inf + 1);
 }
 
 /***************************************************/
