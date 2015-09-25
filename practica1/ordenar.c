@@ -14,6 +14,8 @@
 
 #include <stdlib.h>
 
+void swap(int *a, int *b);
+
 /***************************************************/
 /* Funcion: aleat_num Fecha:                       */
 /* Autores: Ángel Manuel Martín                    */
@@ -50,7 +52,6 @@ int aleat_num(int inf, int sup)
 int* genera_perm(int n)
 {
   int i;
-  int tmp;
   int r;
   int* perm = (int*)malloc(n*sizeof(int));
  
@@ -62,9 +63,7 @@ int* genera_perm(int n)
 
   for(i = 0; i < n; ++i) {
     r = aleat_num(i, n - 1);
-    tmp = perm[r];
-    perm[r] = perm[i];
-    perm[i] = tmp;
+    swap(&perm[r], &perm[i]);
   }
 
   return perm;
@@ -167,6 +166,14 @@ short genera_tiempos_ordenacion(pfunc_ordena metodo, char* fichero,
 short guarda_tabla_tiempos(char* fichero, PTIEMPO tiempo, int N)
 {
   /* vuestro codigo */
+}
+
+void swap(int *a, int *b) {
+  int tmp;
+
+  tmp = *a;
+  *a = *b;
+  *b = tmp;
 }
 
 
