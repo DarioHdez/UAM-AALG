@@ -12,7 +12,10 @@
 
 #include "ordenar.h"
 
+#include <limits.h>
+#include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 void swap(int *a, int *b);
 
@@ -119,6 +122,7 @@ int** genera_permutaciones(int n_perms, int tamanio)
 /***************************************************/
 int BubbleSort(int* tabla, int ip, int iu)
 {
+  int ob = 0;
   int i = iu;
   int j;
   int swapped = 1;
@@ -127,6 +131,7 @@ int BubbleSort(int* tabla, int ip, int iu)
     swapped = 0;
 
     for(j = ip; j < i; ++j) {
+      ++ob;
       if(tabla[j] > tabla[j+1]) {
         swap(&tabla[j], &tabla[j+1]);
         swapped = 1;
@@ -136,7 +141,7 @@ int BubbleSort(int* tabla, int ip, int iu)
     --i;
   }
 
-  return ;
+  return ob;
 }
 
 /***************************************************/
@@ -160,7 +165,58 @@ short tiempo_medio_ordenacion(pfunc_ordena metodo,
                               int tamanio, 
                               PTIEMPO ptiempo)
 {
-/* vuestro codigo */
+  double tiempo;
+  double medio_ob;
+  int min_ob = INT_MAX;
+  int max_ob = -1;
+  int tot_ob = 0;
+  int i;
+  int** perms = genera_permutaciones(n_perms, tamanio);
+  clock_t inicio, final;
+     
+  inicio = clock();
+
+  if(!perms)
+    return ERR;
+
+  for(i = 0; i < n_perms; ++i) {
+    int ob;
+
+    ob = metodo(perms[i], 0, tamanio-1);
+
+    if(ob == ERR) {
+      int j;
+
+      for(j = 0; j < n_perms; ++j)
+        free(perms[j]);
+
+      free(perms);
+
+      return ERR;
+    }
+
+    tot_ob += ob;
+
+    if(ob > max_ob)
+      max_ob = ob;
+
+    if(ob < min_ob)
+      min_ob = ob;
+  }
+
+  final = clock();
+  tiempo = ((double) (final - inicio)) / (double)CLOCKS_PER_SEC;
+
+  medio_ob = tiempo/((double)tot_ob);
+
+  ptiempo->n_perms = n_perms;
+  ptiempo->tamanio = tamanio;
+  ptiempo->tiempo = tiempo;
+  ptiempo->medio_ob = medio_ob;
+  ptiempo->min_ob = min_ob;
+  ptiempo->max_ob = max_ob;
+
+  return OK;
 }
 
 /***************************************************/
@@ -172,7 +228,23 @@ short genera_tiempos_ordenacion(pfunc_ordena metodo, char* fichero,
                                 int num_min, int num_max, 
                                 int incr, int n_perms)
 {
-  /* vuestro codigo */
+  int i;
+  int s;
+  int N = (num_max - num_min + 1)/incr;
+  TIEMPO *t = (TIEMPO*)malloc(sizeof(t[0])*N);
+
+  for (i = 0, s = num_min; s <= num_max; ++i, s += incr) {
+    if (tiempo_medio_ordenacion(metodo, n_perms, s, &t[i]) == ERR)
+      return ERR;
+  }
+
+  if(guarda_tabla_tiempos(fichero, t, N) == ERR) {
+    free(t);
+    return ERR;
+  }
+
+  free(t);
+  return OK;
 }
 
 /***************************************************/
@@ -183,7 +255,27 @@ short genera_tiempos_ordenacion(pfunc_ordena metodo, char* fichero,
 /***************************************************/
 short guarda_tabla_tiempos(char* fichero, PTIEMPO tiempo, int N)
 {
-  /* vuestro codigo */
+  int i;
+  FILE* f;
+
+  f = fopen(fichero, "w");
+
+  if (f == NULL)
+    return ERR;
+
+  for(i = 0; i < N; ++i)
+    fprintf(f,
+    "%d\t%d\t%f\t%f\t%d\t%d\n",
+    tiempo[i].n_perms,
+    tiempo[i].tamanio,
+    tiempo[i].tiempo,
+    tiempo[i].medio_ob,
+    tiempo[i].min_ob,
+    tiempo[i].max_ob);
+
+  fclose(f);
+
+  return OK;
 }
 
 void swap(int *a, int *b) {
