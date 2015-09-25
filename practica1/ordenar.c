@@ -12,6 +12,8 @@
 
 #include "ordenar.h"
 
+#include <stdlib.h>
+
 /***************************************************/
 /* Funcion: aleat_num Fecha:                       */
 /* Autores: Ángel Manuel Martín                    */
@@ -87,7 +89,28 @@ int* genera_perm(int n)
 /***************************************************/
 int** genera_permutaciones(int n_perms, int tamanio)
 {
-/* vuestro codigo */
+  int i;
+  int j;
+  int** perms = (int**)malloc(sizeof(int*)*n_perms);
+
+  if(!perms)
+    return NULL;
+
+  for(i = 0; i < n_perms; ++i) {
+    perms[i] = NULL;
+    perms[i] = genera_perm(tamanio);
+
+    if(perms[i] == NULL) {
+      for(j = i - 1; j >= 0; --j) {
+        free(perms[j]);
+      }
+      free(perms);
+
+      return NULL;
+    }
+  }
+
+  return perms;
 }
 
 /***************************************************/
