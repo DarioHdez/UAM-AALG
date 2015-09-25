@@ -118,7 +118,24 @@ int** genera_permutaciones(int n_perms, int tamanio)
 /***************************************************/
 int BubbleSort(int* tabla, int ip, int iu)
 {
-  /* vuestro codigo */
+  int i = iu;
+  int j;
+  int swapped = 1;
+
+  while(swapped) {
+    swapped = 0;
+
+    for(j = ip; j < i; ++j) {
+      if(tabla[j] > tabla[j+1]) {
+        swap(&tabla[j], &tabla[j+1]);
+        swapped = 1;
+      }
+    }
+
+    --j;
+  }
+
+  return OK;
 }
 
 /***************************************************/
