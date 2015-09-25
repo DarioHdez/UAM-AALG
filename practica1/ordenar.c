@@ -133,10 +133,10 @@ int BubbleSort(int* tabla, int ip, int iu)
       }
     }
 
-    --j;
+    --i;
   }
 
-  return OK;
+  return ;
 }
 
 /***************************************************/
