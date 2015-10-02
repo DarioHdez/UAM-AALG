@@ -18,6 +18,7 @@
 #include <time.h>
 
 void swap(int *a, int *b);
+int roundup_division(int a, int b);
 
 /***************************************************/
 /* Funcion: aleat_num Fecha:                       */
@@ -229,7 +230,7 @@ short tiempo_medio_ordenacion(pfunc_ordena metodo,
 
   tiempo = tiempo_tot/((double)n_perms);
 
-  medio_ob = tiempo/((double)tot_ob);
+  medio_ob = tiempo_tot/((double)tot_ob);
 
   ptiempo->n_perms = n_perms;
   ptiempo->tamanio = tamanio;
@@ -257,7 +258,7 @@ short genera_tiempos_ordenacion(pfunc_ordena metodo, char* fichero,
 {
   int i;
   int s;
-  int N = (num_max - num_min + 1)/incr + 1;
+  int N = roundup_division(num_max - num_min + 1, incr);
   TIEMPO *t = (TIEMPO*)malloc(sizeof(t[0])*N);
 
   for (i = 0, s = num_min; s <= num_max; ++i, s += incr) {
@@ -311,6 +312,10 @@ void swap(int *a, int *b) {
   tmp = *a;
   *a = *b;
   *b = tmp;
+}
+
+int roundup_division(int a, int b) {
+  return (a + b - 1) / b;
 }
 
 
