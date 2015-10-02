@@ -150,7 +150,26 @@ int BubbleSort(int* tabla, int ip, int iu)
 /***************************************************/
 int BubbleSortInv(int* tabla, int ip, int iu)
 {
-  /* vuestro codigo */
+  int ob = 0;
+  int i = iu;
+  int j;
+  int swapped = 1;
+
+  while(swapped) {
+    swapped = 0;
+
+    for(j = ip; j < i; ++j) {
+      ++ob;
+      if(tabla[j] < tabla[j+1]) {
+        swap(&tabla[j], &tabla[j+1]);
+        swapped = 1;
+      }
+    }
+
+    --i;
+  }
+
+  return ob;
 }
 
 
@@ -165,6 +184,7 @@ short tiempo_medio_ordenacion(pfunc_ordena metodo,
                               int tamanio, 
                               PTIEMPO ptiempo)
 {
+  double tiempo_tot;
   double tiempo;
   double medio_ob;
   int min_ob = INT_MAX;
@@ -205,7 +225,9 @@ short tiempo_medio_ordenacion(pfunc_ordena metodo,
   }
 
   final = clock();
-  tiempo = ((double) (final - inicio)) / (double)CLOCKS_PER_SEC;
+  tiempo_tot = ((double) (final - inicio)) / (double)CLOCKS_PER_SEC;
+
+  tiempo = tiempo_tot/((double)n_perms);
 
   medio_ob = tiempo/((double)tot_ob);
 
@@ -215,6 +237,11 @@ short tiempo_medio_ordenacion(pfunc_ordena metodo,
   ptiempo->medio_ob = medio_ob;
   ptiempo->min_ob = min_ob;
   ptiempo->max_ob = max_ob;
+
+  for(i = 0; i < n_perms; ++i)
+    free(perms[i]);
+
+  free(perms);
 
   return OK;
 }
@@ -230,7 +257,7 @@ short genera_tiempos_ordenacion(pfunc_ordena metodo, char* fichero,
 {
   int i;
   int s;
-  int N = (num_max - num_min + 1)/incr;
+  int N = (num_max - num_min + 1)/incr + 1;
   TIEMPO *t = (TIEMPO*)malloc(sizeof(t[0])*N);
 
   for (i = 0, s = num_min; s <= num_max; ++i, s += incr) {
@@ -265,7 +292,7 @@ short guarda_tabla_tiempos(char* fichero, PTIEMPO tiempo, int N)
 
   for(i = 0; i < N; ++i)
     fprintf(f,
-    "%d\t%d\t%f\t%f\t%d\t%d\n",
+    "%d\t%d\t%.10f\t%.16f\t%d\t%d\n",
     tiempo[i].n_perms,
     tiempo[i].tamanio,
     tiempo[i].tiempo,
