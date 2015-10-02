@@ -230,7 +230,7 @@ short tiempo_medio_ordenacion(pfunc_ordena metodo,
 
   tiempo = tiempo_tot/((double)n_perms);
 
-  medio_ob = tiempo_tot/((double)tot_ob);
+  medio_ob = ((double)tot_ob)/((double)n_perms);
 
   ptiempo->n_perms = n_perms;
   ptiempo->tamanio = tamanio;
@@ -293,8 +293,7 @@ short guarda_tabla_tiempos(char* fichero, PTIEMPO tiempo, int N)
 
   for(i = 0; i < N; ++i)
     fprintf(f,
-    "%d\t%d\t%.10f\t%.16f\t%d\t%d\n",
-    tiempo[i].n_perms,
+    "%d\t%10.10f\t%10.2f\t%d\t%d\n",
     tiempo[i].tamanio,
     tiempo[i].tiempo,
     tiempo[i].medio_ob,
