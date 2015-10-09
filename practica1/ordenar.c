@@ -21,7 +21,7 @@ void swap(int *a, int *b);
 int roundup_division(int a, int b);
 
 /***************************************************/
-/* Funcion: aleat_num Fecha:                       */
+/* Funcion: aleat_num Fecha: 2015-10-02            */
 /* Autores: Ángel Manuel Martín                    */
 /*          Darío Adrián Hernández Barroso         */
 /* Rutina que genera un numero aleatorio           */
@@ -39,9 +39,9 @@ int aleat_num(int inf, int sup)
 }
 
 /***************************************************/
-/* Funcion: genera_perm Fecha:                     */
-/* Autores:                                        */
-/*                                                 */
+/* Funcion: genera_perm Fecha: 2015-10-02          */
+/* Autores: Ángel Manuel Martín                    */
+/*          Darío Adrián Hernández Barroso         */
 /* Rutina que genera una permutacion               */
 /* aleatoria                                       */
 /*                                                 */
@@ -74,9 +74,9 @@ int* genera_perm(int n)
 }
 
 /***************************************************/
-/* Funcion: genera_permutaciones Fecha:            */
-/* Autores:                                        */
-/*                                                 */
+/* Funcion: genera_permutaciones Fecha: 2015-10-02 */
+/* Autores: Ángel Manuel Martín                    */
+/*          Darío Adrián Hernández Barroso         */
 /* Funcion que genera n_perms permutaciones        */
 /* aleatorias de tamanio elementos                 */
 /*                                                 */
@@ -118,8 +118,20 @@ int** genera_permutaciones(int n_perms, int tamanio)
 }
 
 /***************************************************/
-/* Funcion: SelectSort    Fecha:                   */
-/* Vuestro comentario                              */
+/* Funcion: BubbleSort    Fecha: 2015-10-02        */
+/* Autores: Ángel Manuel Martín                    */
+/*          Darío Adrián Hernández Barroso         */
+/* Ordena una tabla usando el algoritmo BubbleSort */
+/* La ordenación es de menor a mayor.              */
+/*                                                 */
+/* Entrada:                                        */
+/* int* tabla: Puntero a la tabla que se debe ord. */
+/* int ip: Indice del primer elemento del rango a  */
+/*         ordenar.                                */
+/* int iu: Indice del final del rango a ordenar.   */
+/*         El final esta incluido en el rango.     */
+/* Salida:                                         */
+/* int: Numero de operaciones basicas realizadas.  */
 /***************************************************/
 int BubbleSort(int* tabla, int ip, int iu)
 {
@@ -146,8 +158,20 @@ int BubbleSort(int* tabla, int ip, int iu)
 }
 
 /***************************************************/
-/* Funcion: SelectSortInv    Fecha:                   */
-/* Vuestro comentario                              */
+/* Funcion: BubbleSort    Fecha: 2015-10-02        */
+/* Autores: Ángel Manuel Martín                    */
+/*          Darío Adrián Hernández Barroso         */
+/* Ordena una tabla usando el algoritmo BubbleSort */
+/* La ordenación es de mayor a menor               */
+/*                                                 */
+/* Entrada:                                        */
+/* int* tabla: Puntero a la tabla que se debe ord. */
+/* int ip: Indice del primer elemento del rango a  */
+/*         ordenar.                                */
+/* int iu: Indice del final del rango a ordenar.   */
+/*         El final esta incluido en el rango.     */
+/* Salida:                                         */
+/* int: Numero de operaciones basicas realizadas.  */
 /***************************************************/
 int BubbleSortInv(int* tabla, int ip, int iu)
 {
@@ -174,12 +198,23 @@ int BubbleSortInv(int* tabla, int ip, int iu)
 }
 
 
-/***************************************************/
-/* Funcion: tiempo_medio_ordenacion Fecha:         */
-/*                                                 */
-/* Vuestra documentacion (formato igual            */
-/* que en el primer apartado):                     */
-/***************************************************/
+/******************************************************/
+/* Funcion: tiempo_medio_ordenacion Fecha: 2015-10-02 */
+/*                                                    */
+/* Autores: Ángel Manuel Martín                       */
+/*          Darío Adrián Hernández Barroso            */
+/* Mide diversos parametros de un algoritmo de ord.   */
+/* para un tamanio de entrada dado.                   */
+/*                                                    */
+/* Entrada:                                           */
+/* pfunc_ordena metodo: algoritmo de ordenacion       */
+/* int n_perms: numero de permutaciones a promediar   */
+/* int tamanio: tamanio de las permutaciones a ordenar*/
+/* PTIEMPO ptiempo: Puntero a estructura donde        */
+/*                  guardar tiempos y medidas.        */
+/* Salida:                                            */
+/* short: OK si todo fue bien, ERR en caso contrario  */
+/******************************************************/
 short tiempo_medio_ordenacion(pfunc_ordena metodo, 
                               int n_perms,
                               int tamanio, 
@@ -197,7 +232,7 @@ short tiempo_medio_ordenacion(pfunc_ordena metodo,
      
   inicio = clock();
 
-  if(!perms)
+  if(perms == NULL)
     return ERR;
 
   for(i = 0; i < n_perms; ++i) {
@@ -226,11 +261,11 @@ short tiempo_medio_ordenacion(pfunc_ordena metodo,
   }
 
   final = clock();
-  tiempo_tot = ((double) (final - inicio)) / (double)CLOCKS_PER_SEC;
+  tiempo_tot = (double)(final - inicio)/CLOCKS_PER_SEC;
 
-  tiempo = tiempo_tot/((double)n_perms);
+  tiempo = tiempo_tot/n_perms;
 
-  medio_ob = ((double)tot_ob)/((double)n_perms);
+  medio_ob = (double)tot_ob/n_perms;
 
   ptiempo->n_perms = n_perms;
   ptiempo->tamanio = tamanio;
@@ -247,11 +282,27 @@ short tiempo_medio_ordenacion(pfunc_ordena metodo,
   return OK;
 }
 
-/***************************************************/
-/* Funcion: genera_tiempos_ordenacion Fecha:       */
-/*                                                 */
-/* Vuestra documentacion                           */
-/***************************************************/
+/********************************************************/
+/* Funcion: genera_tiempos_ordenacion Fecha: 2015-10-02 */
+/*                                                      */
+/* Autores: Ángel Manuel Martín                         */
+/*          Darío Adrián Hernández Barroso              */
+/*                                                      */
+/* Mide y guarda los tiempos de un algoritmo dado.      */
+/*                                                      */
+/* Entrada:                                             */
+/* pfunc_ordena metodo: algoritmo de ordenacion         */
+/* char* fichero: nombre del fichero donde guardar      */
+/* int num_min: tamanio minimo de las permutaciones     */
+/* int num_max: tamanio maximo                          */
+/* int incr: incremento del tamanio                     */
+/* int n_perms: numero de permutaciones a promediar     */
+/*              para cada tamanio                       */
+/* PTIEMPO ptiempo: Puntero a estructura donde          */
+/*                  guardar tiempos y medidas.          */
+/* Salida:                                              */
+/* short: OK si todo fue bien, ERR en caso contrario    */
+/********************************************************/
 short genera_tiempos_ordenacion(pfunc_ordena metodo, char* fichero, 
                                 int num_min, int num_max, 
                                 int incr, int n_perms)
@@ -275,12 +326,23 @@ short genera_tiempos_ordenacion(pfunc_ordena metodo, char* fichero,
   return OK;
 }
 
-/***************************************************/
-/* Funcion: guarda_tabla_tiempos Fecha:            */
-/*                                                 */
-/* Vuestra documentacion (formato igual            */
-/* que en el primer apartado):                     */
-/***************************************************/
+/********************************************************/
+/* Funcion: guarda_tabla_tiempos Fecha: 2015-10-02      */
+/*                                                      */
+/* Autores: Ángel Manuel Martín                         */
+/*          Darío Adrián Hernández Barroso              */
+/*                                                      */
+/* Entrada:                                             */
+/* pfunc_ordena metodo: algoritmo de ordenacion         */
+/* char* fichero: nombre del fichero donde guardar      */
+/* PTIEMPO tiempo: array de TIEMPO                      */
+/* int N: longitud del array tiempo                     */
+/*                                                      */
+/* PTIEMPO ptiempo: Puntero a estructura donde          */
+/*                  guardar tiempos y medidas.          */
+/* Salida:                                              */
+/* short: OK si todo fue bien, ERR en caso contrario    */
+/********************************************************/
 short guarda_tabla_tiempos(char* fichero, PTIEMPO tiempo, int N)
 {
   int i;
@@ -305,6 +367,18 @@ short guarda_tabla_tiempos(char* fichero, PTIEMPO tiempo, int N)
   return OK;
 }
 
+/**********************************************/
+/* Funcion: swap Fecha: 2015-10-02            */
+/*                                            */
+/* Autores: Ángel Manuel Martín               */
+/*          Darío Adrián Hernández Barroso    */
+/*                                            */
+/* Intercambia dos enteros en memoria         */
+/*                                            */
+/* Entrada:                                   */
+/* int *a: Puntero a A                        */
+/* int *b: Puntero a B                        */
+/**********************************************/
 void swap(int *a, int *b) {
   int tmp;
 
@@ -313,6 +387,20 @@ void swap(int *a, int *b) {
   *b = tmp;
 }
 
+/**********************************************/
+/* Funcion: swap Fecha: 2015-10-02            */
+/*                                            */
+/* Autores: Ángel Manuel Martín               */
+/*          Darío Adrián Hernández Barroso    */
+/*                                            */
+/* Implementa techo(A/B)                      */
+/*                                            */
+/* Entrada:                                   */
+/* int a: A                                   */
+/* int b: B                                   */
+/* Salida:                                    */
+/* int: techo(A/B)                            */
+/**********************************************/
 int roundup_division(int a, int b) {
   return (a + b - 1) / b;
 }
