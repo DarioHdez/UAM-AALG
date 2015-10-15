@@ -1,0 +1,27 @@
+1. Justifica tu implementación de aleat_num ¿en qué ideas se basa? ¿de qué libro/artículo, si alguno, has tomadola idea? 
+Propón un método alternativo de generación de números aleatorios y justifica sus ventajas/desventajas
+respecto a tu elección.
+
+
+
+
+2. Justifica lo más formalmente que puedas la corrección (o dicho de otra manera, el porqué ordena bien) del
+algoritmo BubbleSort.
+
+
+2r)La correción del algoritmo BubbleSort se basa en la comparación de claves, por lo que va a recorrer toda la tabla
+	comparando los números y recolocándolos cuando se cumpla la condición.  
+
+
+
+3. ¿Por qué el bucle de BubbleSort no actúa sobre el último elemento de la tabla?
+
+3r) Porque se ordena sólo, dado que la tabla se va ordenando de derecha a izquierda.
+
+4. ¿Cu´al es la operaci´on b´asica de BubbleSort?
+
+4r)if(tabla[j] > tabla[j+1])
+
+5. Dar tiempos de ejecuci´on en funci´on del tama˜no de entrada n para el caso peor WSS(n) y el caso mejor BSS(n)
+de BubbleSort. Utilizar la notaci´on asint´otica (O, Θ, o, Ω,etc) siempre que se pueda. ¿Son estos valores los
+mismos que los del algoritmo BubbleSortInv ?
